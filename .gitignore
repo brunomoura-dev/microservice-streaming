@@ -14,3 +14,4 @@ yarn-error.log
 .docker/dbdata
 composer.look
 package.look
+package-lock.json
