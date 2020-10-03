@@ -1,10 +1,18 @@
 steps:
+  - id: "Run docker-compose"
+    name: 'docker/compose'
+    args: ['-f', 'docker-compose.prod.yaml', 'up', '-d']
+
+  - id: "Chown in /var/www"
+    name: 'docker'
+    args: ['exec', '-u', 'root', '-t', 'app', 'chown', '-R', 'www-data:www-data', '/var/www']
+
   - id: "Run docker ps"
     name: 'gcr.io/cloud-builders/docker'
     args: ['ps']
 
   - id: "Run composer"
-    name: 'gcr.io/cloud-builders/docker'
+    name: 'docker'
     args: ['exec', '-t', 'app', 'composer', 'install']
 
   - id: "Run Key Generate"
