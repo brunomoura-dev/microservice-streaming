@@ -1,24 +1,4 @@
 steps:
-  - id: "Run docker-compose"
-    name: 'gcr.io/$PROJECT_ID/docker-compose:1.24.0'
+  - id: "Rodando docker-compose"
+    name: 'gcr.io/$PROJECT_ID/docker-compose'
     args: ['-f', 'docker-compose.cloudbuild.yaml', 'up', '-d']
-
-  - id: "Run docker ps"
-    name: 'gcr.io/cloud-builders/docker'
-    args: ['ps']
-
-  - id: "Run composer"
-    name: 'gcr.io/cloud-builders/docker'
-    args: ['exec', '-t', 'app', 'composer', 'install']
-
-  - id: "Run Key Generate"
-    name: 'gcr.io/cloud-builders/docker'
-    args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
-
-  - id: "Run Migrations"
-    name: 'gcr.io/cloud-builders/docker'
-    args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'migrate']
-
-  - id: "Run Phpunit"
-    name: 'gcr.io/cloud-builders/docker'
-    args: ['exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
